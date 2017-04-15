@@ -8,13 +8,14 @@
 
 import UIKit
 
-enum Crud:String {
-    case get = "GET"
-    case post = "POST"
-    case put = "PUT"
-}
-
 class API {
+    
+    enum Method:String {
+        case get = "GET"
+        case post = "POST"
+        case put = "PUT"
+    }
+
     typealias Response = (_ code: Int, _ object: Any?) -> Void
     
     class func get(url: String, response: @escaping Response) {
@@ -35,7 +36,7 @@ class API {
         }
     }
 
-    private class func request(method: Crud, url: String, payload: Any? = nil, completionHandler: @escaping (Any?, Int, Error?) -> Swift.Void) {
+    private class func request(method: Method, url: String, payload: Any? = nil, completionHandler: @escaping (Any?, Int, Error?) -> Swift.Void) {
         guard let url = URL(string: url) else {
             completionHandler(nil, -1, nil)
             return
