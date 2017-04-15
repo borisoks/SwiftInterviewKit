@@ -56,7 +56,7 @@ class API {
                 }
             }
             
-            GCD.main {
+            DispatchQueue.main.async {
                 completionHandler(responseObject, (response as? HTTPURLResponse)?.statusCode ?? -1, error)
             }
         }
