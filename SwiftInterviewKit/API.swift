@@ -9,34 +9,41 @@
 import UIKit
 
 class API {
+    
+    enum Method:String {
+        case get = "GET"
+        case post = "POST"
+        case put = "PUT"
+    }
+
     typealias Response = (_ code: Int, _ object: Any?) -> Void
     
     class func get(url: String, response: @escaping Response) {
-        self.request(method: "GET", url: url) { (object, code, error) in
+        self.request(method: .get, url: url) { (object, code, error) in
             response(code, object)
         }
     }
 
     class func post(url: String, payload: Any, response: @escaping Response) {
-        self.request(method: "POST", url: url, payload: payload) { (object, code, error) in
+        self.request(method: .post, url: url, payload: payload) { (object, code, error) in
             response(code, object)
         }
     }
 
     class func put(url: String, response: @escaping Response) {
-        self.request(method: "PUT", url: url) { (object, code, error) in
+        self.request(method: .put, url: url) { (object, code, error) in
             response(code, object)
         }
     }
 
-    private class func request(method: String, url: String, payload: Any? = nil, completionHandler: @escaping (Any?, Int, Error?) -> Swift.Void) {
+    private class func request(method: Method, url: String, payload: Any? = nil, completionHandler: @escaping (Any?, Int, Error?) -> Swift.Void) {
         guard let url = URL(string: url) else {
             completionHandler(nil, -1, nil)
             return
         }
         
         var request = URLRequest(url: url)
-        request.httpMethod = method
+        request.httpMethod = method.rawValue
         
         if let dictPayload = payload as? [String: Any] {
             request.httpBody = dictPayload.JSONData
