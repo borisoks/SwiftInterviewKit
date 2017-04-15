@@ -8,13 +8,14 @@
 
 import UIKit
 
-enum Method:String {
-    case get = "GET"
-    case post = "POST"
-    case put = "PUT"
-}
-
 class API {
+    
+    enum Method:String {
+        case get = "GET"
+        case post = "POST"
+        case put = "PUT"
+    }
+
     typealias Response = (_ code: Int, _ object: Any?) -> Void
     
     class func get(url: String, response: @escaping Response) {
