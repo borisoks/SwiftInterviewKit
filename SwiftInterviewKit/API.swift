@@ -6,7 +6,7 @@
 //  Copyright © 2017 Boris Oks. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class API {
     typealias Response = (_ code: Int, _ object: Any?) -> Void
@@ -46,8 +46,18 @@ class API {
 
         let session = URLSession(configuration: URLSessionConfiguration.default)
         let task = session.dataTask(with: request) { (data, response, error) in
+            var responseObject: Any? = nil
+
+            if let responseData = data {
+                if let obj = responseData.JSONObject {
+                    responseObject = obj
+                } else if let image = UIImage(data: responseData) {
+                    responseObject = image
+                }
+            }
+            
             GCD.main {
-                completionHandler(data?.JSONObject, (response as? HTTPURLResponse)?.statusCode ?? -1, error)
+                completionHandler(responseObject, (response as? HTTPURLResponse)?.statusCode ?? -1, error)
             }
         }
         
