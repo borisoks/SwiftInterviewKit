@@ -15,7 +15,7 @@ class TableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        API.get(url: "https://netflixroulette.net/api/api.php?director=Quentin%20Tarantino") { (code, object) in
+        API.get(url: "https://netflixroulette.net/api/api.php?director=Quentin%20Tarantino") { [unowned self] (code, object) in
             if let array = object as? [[String: AnyObject]] {
                 self.items = array
                 self.tableView.reloadData()
@@ -38,7 +38,7 @@ class TableViewController: UITableViewController {
             return UITableViewCell()
         }
         
-        let obj = items[indexPath.row]
+        let obj = self.items[indexPath.row]
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath)
 
