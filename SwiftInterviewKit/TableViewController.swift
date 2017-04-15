@@ -44,6 +44,12 @@ class TableViewController: UITableViewController {
 
         cell.textLabel?.text = obj["show_title"] as? String ?? "Unknown title"
 
+        if let imgURL = obj["poster"] as? String {
+            cell.imageView?.loadImage(url: imgURL) { success in
+                cell.setNeedsLayout()
+            }
+        }
+
         return cell
     }
 
