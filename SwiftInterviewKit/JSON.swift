@@ -13,7 +13,7 @@ extension Data {
         do {
             return try JSONSerialization.jsonObject(with: self, options: [])
         } catch {
-            print("Problem de-serializing object: \(error)")
+            //print("Problem de-serializing object: \(error)")
         }
         
         return nil
@@ -42,7 +42,7 @@ extension Dictionary {
         do {
             return try JSONSerialization.data(withJSONObject: self, options: [])
         } catch {
-            print("Problem de-serializing object: \(error)")
+            //print("Problem de-serializing object: \(error)")
         }
         return nil
     }
@@ -60,7 +60,7 @@ extension Array {
         do {
             return try JSONSerialization.data(withJSONObject: self, options: [])
         } catch {
-            print("Problem de-serializing object: \(error)")
+            //print("Problem de-serializing object: \(error)")
         }
         return nil
     }
